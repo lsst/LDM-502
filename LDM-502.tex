@@ -26,9 +26,9 @@
 The Key Performance Metrics (KPMs) are the main criteria by which the
 performance of the Data Management (DM) software system are evaluated
 quantitatively. Many of these metrics are initially discussed in the
-Science Requirements Document (SRD; LPM-17) but detailed further in the
-LSST System Requirements (LSR; LSE-29) and the Observatory System
-Specifications (OSS; LSE-30). They can be grouped into six main
+Science Requirements Document (\SRD, \citell{LPM-17}) but detailed further in the
+LSST System Requirements (\LSR; \citell{LSE-29}) and the Observatory System
+Specifications (\OSS; \citell{LSE-30}). They can be grouped into six main
 categories: photometric, astrometric, shape, transient, computational
 and system stability metrics.
 
@@ -54,7 +54,7 @@ accuracy of the photometry.
 \subsubsection{Calibration Processing
 Performance}\label{calibration-processing-performance}
 
-Reference Document: LSE-30; OSS-REQ-0275
+Reference Document: \citell{LSE-30}; OSS-REQ-0275
 
 \textbf{Discussion}: The LSST System shall photometrically calibrate raw
 image data such that the data processing contributes no more than the
@@ -99,11 +99,11 @@ engineering data of the COSMOS field.
 \subsubsection{Photometric Repeatability
 Performance}\label{photometric-repeatability-performance}
 
-Reference Document: LSE-29; LSR-REQ-0093
+Reference Document: \citell{LSE-29}; LSR-REQ-0093
 
 \textbf{Discussion:} The specifications for photometric repeatability
 applies to the cataloged LSST magnitudes,
-m\textsuperscript{std}(catalog) (see SRD eq. 8), for appropriately
+m\textsuperscript{std}(catalog) (see \SRD eq. 8), for appropriately
 chosen main sequence stars (e.g. non-variable stars color-selected from
 the main stellar locus).
 
@@ -137,7 +137,7 @@ can be used here.
 \subsection{Photometric Spatial
 Uniformity}\label{photometric-spatial-uniformity}
 
-Reference Document: LSE-29; LSR-REQ-0093. See also SRD pg. 21.
+Reference Document: \citell{LSE-29}; LSR-REQ-0093. See also \SRD pg. 21.
 
 \textbf{Discussion:} The distribution width (rms) of the internal
 photometric zero-point error (the system stability across the sky) will
@@ -197,7 +197,7 @@ the HSC or DES survey data could be used for this purpose.
 
 \subsection{Color Zero-point Accuracy}\label{color-zero-point-accuracy}
 
-Reference Document: LSE-29; LSR-REQ-0093, also see SRD pg. 22
+Reference Document: \citell{LSE-29}; LSR-REQ-0093, also see \SRD pg. 22
 
 \textbf{Discussion:} The absolute band-to-band zero-point
 transformations (color zero-points, e.g. for constructing the spectral
@@ -249,7 +249,7 @@ where the calibrators are located) using a modern multi-chip imager
 \subsection{Absolute Photometric
 Accuracy}\label{absolute-photometric-accuracy}
 
-Reference Document: LSE-29; LSR-REQ-0093. See also SRD, pg. 22.
+Reference Document: \citell{LSE-29}; LSR-REQ-0093. See also \SRD, pg. 22.
 
 \textbf{Discussion:} The LSST photometric system must transform to a
 physical scale (e.g. AB magnitude scale) with an accuracy of PA6
@@ -312,7 +312,7 @@ by the LSST DM stack.
 
 \subsection{Relative Astrometry}\label{relative-astrometry}
 
-Reference Document: LSE-29; LSR-REQ-0094. See also SRD, pg. 23-24.
+Reference Document: \citell{LSE-29}; LSR-REQ-0094. See also \SRD, pg. 23-24.
 
 \textbf{Discussion:} This KPM concerns the astrometric quality of single
 visit exposures. The rms of the astrometric distance distribution for
@@ -373,7 +373,7 @@ purpose.
 
 \subsection{Absolute Astrometry}\label{absolute-astrometry}
 
-Reference Document: LSE-29; LSR-REQ-0094. See also SRD, pg.24.
+Reference Document: \citell{LSE-29}; LSR-REQ-0094. See also \SRD, pg.24.
 
 \textbf{Discussion:} The LSST astrometric system must transform to an
 external system (e.g. ICRF extension) with the median accuracy of AA1
@@ -420,9 +420,9 @@ and constraining dark energy.
 \subsection{Residual PSF Ellipticity
 Corrections}\label{residual-psf-ellipticity-corrections}
 
-Reference Document: LSE-29; LSR-REQ-0097. See also SRD, pg. 30-32.
+Reference Document: \citell{LSE-29}; LSR-REQ-0097. See also \SRD, pg. 30-32.
 
-\textbf{Discussion:} Using the full survey data, the E1 and E2 (see SRD
+\textbf{Discussion:} Using the full survey data, the E1 and E2 (see \SRD
 for definitions) distributions averaged over an arbitrary FOV shall have
 medians less than TE1 for theta \textasciitilde{} 1 arcmin, and less
 than TE3 for theta \textless{} 5 arcmin. No more than TEF \% of images
@@ -484,7 +484,7 @@ objects, is an important component of LSST.
 \subsection{Moving Object Linkage
 Efficiency}\label{moving-object-linkage-efficiency}
 
-Reference Document: LSE-30; OSS-REQ-0159
+Reference Document: \citell{LSE-30}; OSS-REQ-0159
 
 \textbf{Discussion:} Valid identification and orbits shall be determined
 for at least a fraction orbitCompleteness of Solar System objects which
@@ -531,7 +531,7 @@ here.
 \subsection{Spuriousness Metric Efficiency --
 Transients}\label{spuriousness-metric-efficiency-transients}
 
-Reference Document: LSE-30; OSS-REQ-0353
+Reference Document: \citell{LSE-30}; OSS-REQ-0353
 
 \textbf{Discussion:} There shall exist a spuriousness threshold T for
 which the completeness and purity of selected difference sources are
@@ -589,7 +589,7 @@ the sky.
 \subsection{Spuriousness Metric Efficiency -
 MOPS}\label{spuriousness-metric-efficiency---mops}
 
-Reference Document: LSE-30; OSS-REQ-0354
+Reference Document: \citell{LSE-30}; OSS-REQ-0354
 
 \textbf{Discussion:} There shall exist a spuriousness threshold T for
 which the completeness and purity of difference sources are higher than
@@ -652,8 +652,8 @@ DM stack and hardware.
 
 \subsection{Computational Budgets}\label{computational-budgets}
 
-\textbf{Reference Document:} LDM-138\textbar{}Output\textbar{}C4, F4 and
-LSE-81\textbar{}G263. Also see SRD (pg.33-34) and LDM-140.
+\textbf{Reference Document:} \citell{LDM-138}\textbar{}Output\textbar{}C4, F4 and
+\citell{LSE-81}\textbar{}G263. Also see \SRD (pg.33-34) and \citell{LDM-140}.
 
 \textbf{Discussion:} Data on likely optical transients will be released
 with a latency of at most OTT1 (1) minutes. This includes the time to
@@ -713,11 +713,11 @@ coadds for DR1 will be needed for a small number of fields.
 
 \subsection{Database Metrics}\label{database-metrics}
 
-\textbf{Reference Document:} LSE-81\textbar{}G270, G283, G284. Also see
-LDM-135.
+\textbf{Reference Document:} \citell{LSE-81}\textbar{}G270, G283, G284. Also see
+\citell{LDM-135}.
 
 \textbf{Discussion:} These are metrics on the performance of the Qserv
-database service. See LDM-135 section 4.3 for more information on ``low
+database service. See \citell{LDM-135} section 4.3 for more information on ``low
 volume'' and ``high volume'' queries.
 
 \begin{longtable}[]{@{}p{0.4\textwidth}llp{1.5in}p{0.75in}@{}}
@@ -810,7 +810,7 @@ system.
 \subsection{Science Visit Alert Generation
 Reliability}\label{science-visit-alert-generation-reliability}
 
-Reference Document: LSE-30; OSS-REQ-0112
+Reference Document: \citell{LSE-30}; OSS-REQ-0112
 
 \textbf{Discussion:} No more than sciVisitAlertFailure \% of science
 visits read out in the camera {[}and specified to be analyzed by Data
@@ -820,7 +820,7 @@ acquisition through transmission of the alerts across the project
 boundary. No more than sciVisitAlertDelay \% of science visits read out
 in the camera {[}and specified to be analyzed by Data Management{]}
 shall have their alert generation and distribution completed later than
-the SRD specification for alert latency (OTT1).
+the \SRD specification for alert latency (OTT1).
 
 The "specified to be analyzed" language allows for the possibility that
 under some operating modes, such as diagnostics, images deliberately not
@@ -865,7 +865,7 @@ internal database of when visits were taken and their alerts generated.
 \subsection{Science Image Archiving
 Reliability}\label{science-image-archiving-reliability}
 
-Reference Document: LSE-30; OSS-REQ-0111
+Reference Document: \citell{LSE-30}; OSS-REQ-0111
 
 \textbf{Discussion:} No more than sciImageLoss \% of science, wavefront,
 and guider images read out in the camera and specified to be acquired by
@@ -876,7 +876,7 @@ metadata permanently lost or disassociated with the image.
 
 Corruption of images shall mean changes of any image pixel values, with
 the exception of application of a compression algorithm. Any such
-compression algorithm must be shown to have no effect on any SRD
+compression algorithm must be shown to have no effect on any \SRD
 requirement.
 
 The "specified to be acquired" language allows for the possibility that
@@ -909,5 +909,7 @@ and the quality assurance metrics on the corruption of data.
 
 \textbf{Verification Data:} This metric will need to be tested with the
 ``full-up'' DM system, likely during commissioning with the full camera.
+
+\bibliography{lsst}
 
 \end{document}
