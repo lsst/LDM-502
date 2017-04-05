@@ -85,8 +85,7 @@ differences of bright stars computed.
 
 \textbf{Verification Code:} Software exists to perform this calculation
 using data processed through the first step of the science pipeline
-(single frame processing with processCcd) called validate\_drp
-(\url{https://github.com/lsst/validate_drp}). However, validate\_drp
+(single frame processing with \texttt{processCcd}) called \htmladdnormallinkfoot{\texttt{validate\_drp}}{https://github.com/lsst/validate\_drp}. However, \texttt{validate\_drp}
 does not include the calibration processing which are covered by this
 KPM. Therefore, a modified version of this software will need to be
 written that covers a larger portion of the DM data processing.
@@ -242,8 +241,7 @@ the synthetic photometry.
 \textbf{Verification Implementation:} TBD
 
 \textbf{Verification Data:} The HST standard star flux calibrators can
-be used as the reference data
-(http://www.stsci.edu/hst/observatory/crds/calspec.html). The test data
+be used as the reference data\footnote{\url{http://www.stsci.edu/hst/observatory/crds/calspec.html}}. The test data
 should be comprised of many fields spread across the sky (in the regions
 where the calibrators are located) using a modern multi-chip imager
 (e.g. SDSS, HSC, DECam, CFHT).
@@ -299,8 +297,7 @@ function (which itself must be quite accurate).
 
 \textbf{Verification Data:} Until the data for the new DA white dwarf
 calibrators become available the existing HST standard star flux
-calibrators can be used as the reference
-(http://www.stsci.edu/hst/observatory/crds/calspec.html).\protect\hypertarget{_Toc301352570}{}{}
+calibrators can be used as the reference\footnote{\url{http://www.stsci.edu/hst/observatory/crds/calspec.html}}.\protect\hypertarget{_Toc301352570}{}{}
 The test data should be comprised of many fields spread across the sky
 (in the regions where the calibrators are located) using a modern
 multi-chip imager (e.g. SDSS, HSC, DECam, CFHT). As this requirement is
