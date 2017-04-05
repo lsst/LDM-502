@@ -9,6 +9,8 @@
 \setDocRevision{1.0b}
 \setDocStatus{draft}
 
+\newcommand{\jira}[1]{\href{https://jira.lsstcorp.org/browse/#1}{#1}}
+
 %
 %   Revision history
 %
@@ -71,7 +73,7 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 The maximum allowed RSS contribution to the overall photometric
 repeatability of bright isolated point sources caused by errors
 introduced in the data processing pipelines. & 0.003 & ABmag &
-procCalRep & DLP-307\tabularnewline
+procCalRep & \jira{DLP-307}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -114,10 +116,10 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 The RMS photometric repeatability of bright non-saturated unresolved
 point sources in the \textbf{g}, \textbf{r}, and \textbf{i} filters. & 5
-& milli-Mag & PA1gri & DLP-315\tabularnewline
+& milli-Mag & PA1gri & \jira{DLP-315}\tabularnewline
 The RMS photometric repeatability of bright non-saturated unresolved
 point sources in the \textbf{u}, \textbf{z}, and \textbf{y} filters. &
-7.5 & milli-Mag & PA1uzy & DLP-316\tabularnewline
+7.5 & milli-Mag & PA1uzy & \jira{DLP-316}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -150,13 +152,13 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 RMS width of internal photometric zero-point (precision of system
 uniformity across the sky) for u-band. & 20 & milli-Mag & PA3u &
-DLP-317\tabularnewline
+\jira{DLP-317}\tabularnewline
 RMS width of internal photometric zero-point (precision of system
 uniformity across the sky) in the g-band. & 10 & milli-Mag & PA3g &
-DLP-318\tabularnewline
+\jira{DLP-318}\tabularnewline
 RMS width of internal photometric zero-point (precision of system
 uniformity across the sky) in the y-band. & 10 & milli-Mag & PA3y &
-DLP-319\tabularnewline
+\jira{DLP-319}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -215,10 +217,10 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 Accuracy of absolute band-to-band color zero-point for all colors
 constructed from any filter pair, excluding the u-band. & 5 & milli-Mag
-& PA5 & DLP-320\tabularnewline
+& PA5 & \jira{DLP-320}\tabularnewline
 Accuracy of absolute band-to-band color zero-point for colors
 constructed using the u-band. & 10 & milli-Mag & PA5u &
-DLP-321\tabularnewline
+\jira{DLP-321}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -268,7 +270,7 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 Accuracy of the transformation of the internal LSST photometry to a
 physical scale (e.g. AB magnitudes). & 10 & milli-Mag & PA6 &
-DLP-322\tabularnewline
+\jira{DLP-322}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -331,14 +333,14 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Median relative astrometric measurement error on 5 arcminute scales. &
-\textless{}10 & milli-Arcsec & AM1 & DLP-310\tabularnewline
+\textless{}10 & milli-Arcsec & AM1 & \jira{DLP-310}\tabularnewline
 Median relative astrometric measurement error on 20 arcminute scales. &
-\textless{}10 & milli-Arcsec & AM2 & DLP-311\tabularnewline
+\textless{}10 & milli-Arcsec & AM2 & \jira{DLP-311}\tabularnewline
 Median relative astrometric measurement error on 200 arcminute scales. &
-\textless{}15 & milli-Arcsec & AM3 & DLP-312\tabularnewline
+\textless{}15 & milli-Arcsec & AM3 & \jira{DLP-312}\tabularnewline
 RMS difference between separations measured in the r-band and those
 measured in any other filter. & 10 & milli-Mag & AB1 &
-DLP-313\tabularnewline
+\jira{DLP-313}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -390,7 +392,7 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Median error in absolute position for each axis, RA \& DEC, shall be
-less than AA1. & 50 & milli-Arcsec & AA1 & DLP-309\tabularnewline
+less than AA1. & 50 & milli-Arcsec & AA1 & \jira{DLP-309}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -444,10 +446,10 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 Median residual PSF ellipticity correlations averaged over an arbitrary
 field of view for separations less than 1 arcmin shall be no greater
-than & 2.0e-5 & -\/- & TE1 & DLP-290\tabularnewline
+than & 2.0e-5 & -\/- & TE1 & \jira{DLP-290}\tabularnewline
 Median residual PSF ellipticity correlations averaged over an arbitrary
 field of view for separations between 1 and 5 arcmin shall be no greater
-than & 1.0e-7 & -\/- & TE2 & DLP-308\tabularnewline
+than & 1.0e-7 & -\/- & TE2 & \jira{DLP-308}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -503,7 +505,7 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 Minimum fraction of Solar System objects meeting reference criteria for
 which valid orbits shall be determined. & 95\% & Percent &
-orbitCompleteness & DLP-323\tabularnewline
+orbitCompleteness & \jira{DLP-323}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -556,9 +558,9 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Minimum average completeness for transient science. & 90 & Percent &
-transCompletenessMin & DLP-324\tabularnewline
+transCompletenessMin & \jira{DLP-324}\tabularnewline
 Minimum average purity for transient science. & 95 & Percent &
-transPurityMin & DLP-325\tabularnewline
+transPurityMin & \jira{DLP-325}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -615,9 +617,9 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Minimum average completeness for Solar System object discovery & 99 &
-Percent & mopsCompletenessMin & DLP-326\tabularnewline
+Percent & mopsCompletenessMin & \jira{DLP-326}\tabularnewline
 Minimum average purity for Solar System object discovery & 50 & Percent
-& mopsPurityMin & DLP-327\tabularnewline
+& mopsPurityMin & \jira{DLP-327}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -672,13 +674,13 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \endhead
 The minimum latency for releasing data on optical transients.
 Performance of all AP pipelines, middleware and infrastructure. & 60 &
-seconds & OTT1 & DLP-328\tabularnewline
+seconds & OTT1 & \jira{DLP-328}\tabularnewline
 Alert Production computational budget. Performance of all AP pipelines
 and middleware. & 39 & TFLOPS & AP computational budget &
-DLP-329\tabularnewline
+\jira{DLP-329}\tabularnewline
 Data Release Production computational budget (DR1). Performance of all
 DRP+AP pipelines. & 108 & TFLOPS & DRP computational budget (DR1) &
-DLP-314\tabularnewline
+\jira{DLP-314}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -726,17 +728,17 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Qserv query rate & 150 & Simult. queries & query rate &
-DLP-659\tabularnewline
+\jira{DLP-659}\tabularnewline
 Qserv low volume query response time (Type A-D) & 10 & seconds & LV
-query response time & DLP-651 -- DLP-654\tabularnewline
+query response time & \jira{DLP-651} -- \jira{DLP-654}\tabularnewline
 Qserv low volume Object/Source joins response time & 12 & hours & LV
-Object/Source joins response time & DLP-657\tabularnewline
+Object/Source joins response time & \jira{DLP-657}\tabularnewline
 Qserv high volume object scan response time & 1 & hours & HV object scan
-response time & DLP-655\tabularnewline
+response time & \jira{DLP-655}\tabularnewline
 Qserv high volume ObjectExtra scan response time & 8 & hours & HV
-ObjectExtra scan reponse time & DLP-656\tabularnewline
+ObjectExtra scan reponse time & \jira{DLP-656}\tabularnewline
 Qserv high volume Object/ForcedSource join response time & 12 & hours &
-HV Object/ForcedSource join reponse time & DLP-658\tabularnewline
+HV Object/ForcedSource join reponse time & \jira{DLP-658}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -772,15 +774,15 @@ Description & Value & Unit & Name & JIRA ID\tabularnewline
 \midrule
 \endhead
 Web UI portal can support concurrent users. & 100 & users & Web UI
-portal concurrent user supported & DLP-330\tabularnewline
+portal concurrent user supported & \jira{DLP-330}\tabularnewline
 Web UI query results display response time after the search results have
 been received from the data provider. & 1 & seconds & Web UI query
-response time & DLP-331\tabularnewline
+response time & \jira{DLP-331}\tabularnewline
 Web UI image preparation (convert to PNG or other image format) time on
 the server side. & 0.5 & seconds & Web UI image preparation time &
-DLP-332\tabularnewline
+\jira{DLP-332}\tabularnewline
 Web UI image rendering time on user's display. & 0.5 & seconds & Web UI
-image display rendering time & DLP-333\tabularnewline
+image display rendering time & \jira{DLP-333}\tabularnewline
 \bottomrule
 \end{longtable}
 
