@@ -8,6 +8,28 @@
 
 \newcommand{\jira}[1]{\href{https://jira.lsstcorp.org/browse/#1}{#1}}
 
+% Environment for displaying the metric tables in
+% a consistent manner. No arguments as there are no
+% captions or labels.
+\newenvironment{metric}[0]{%
+\setlength\LTleft{0pt}
+\setlength\LTright{\fill}
+\begin{longtable}[]{@{}p{0.4\textwidth}lp{0.75in}p{1.3in}p{0.75in}@{}}
+
+\hline \textbf{Description} & \textbf{Value} & \textbf{Unit} & \textbf{Name} & \textbf{JIRA} \\ \hline
+\endhead
+
+\hline \multicolumn{5}{r}{\emph{Continued on next page}} \\
+\endfoot
+
+\hline\hline
+\endlastfoot
+}{%
+\hline
+\end{longtable}
+}
+
+
 %
 %   Revision history
 %
@@ -62,17 +84,12 @@ effects from calibration algorithms, errors and noise in producing the
 necessary calibration data products, as well as errors and uncertainties
 in any reference catalogs used in the calibration process.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 The maximum allowed RSS contribution to the overall photometric
 repeatability of bright isolated point sources caused by errors
 introduced in the data processing pipelines. & 0.003 & ABmag &
 procCalRep & \jira{DLP-307}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -106,19 +123,14 @@ m\textsuperscript{std}(catalog) (see \SRD eq. 8), for appropriately
 chosen main sequence stars (e.g. non-variable stars color-selected from
 the main stellar locus).
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 The RMS photometric repeatability of bright non-saturated unresolved
 point sources in the \textbf{g}, \textbf{r}, and \textbf{i} filters. & 5
 & milli-Mag & PA1gri & \jira{DLP-315}\tabularnewline
 The RMS photometric repeatability of bright non-saturated unresolved
 point sources in the \textbf{u}, \textbf{z}, and \textbf{y} filters. &
 7.5 & milli-Mag & PA1uzy & \jira{DLP-316}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -142,11 +154,7 @@ Reference Document: \citell{LSE-29}; LSR-REQ-0093. See also \SRD pg. 21.
 photometric zero-point error (the system stability across the sky) will
 not exceed PA3 millimag. Use same source selection as for PA1gri.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 RMS width of internal photometric zero-point (precision of system
 uniformity across the sky) for u-band. & 20 & milli-Mag & PA3u &
 \jira{DLP-317}\tabularnewline
@@ -156,8 +164,7 @@ uniformity across the sky) in the g-band. & 10 & milli-Mag & PA3g &
 RMS width of internal photometric zero-point (precision of system
 uniformity across the sky) in the y-band. & 10 & milli-Mag & PA3y &
 \jira{DLP-319}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -207,19 +214,14 @@ stable gray error in the absolute calibration of the system does not
 have an impact on the above requirements. Such an error is specified by
 PA6. The same source selection as for PA1gri should be used.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Accuracy of absolute band-to-band color zero-point for all colors
 constructed from any filter pair, excluding the u-band. & 5 & milli-Mag
 & PA5 & \jira{DLP-320}\tabularnewline
 Accuracy of absolute band-to-band color zero-point for colors
 constructed using the u-band. & 10 & milli-Mag & PA5u &
 \jira{DLP-321}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -260,16 +262,11 @@ they may be calibrated and controlled by other means, and are not
 sensitive to errors in overall flux scale of photometric calibrators.
 Use same source selection as for PA1gri.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Accuracy of the transformation of the internal LSST photometry to a
 physical scale (e.g. AB magnitudes). & 10 & milli-Mag & PA6 &
 \jira{DLP-322}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -324,11 +321,7 @@ accuracy of 0.2 mas/yr and parallax accuracy of 1.0 mas over the course
 of the survey. These two requirements correspond to relative astrometric
 precision for a single image of 10 mas (per coordinate).
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Median relative astrometric measurement error on 5 arcminute scales. &
 \textless{}10 & milli-Arcsec & AM1 & \jira{DLP-310}\tabularnewline
 Median relative astrometric measurement error on 20 arcminute scales. &
@@ -338,8 +331,7 @@ Median relative astrometric measurement error on 200 arcminute scales. &
 RMS difference between separations measured in the r-band and those
 measured in any other filter. & 10 & milli-Mag & AB1 &
 \jira{DLP-313}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -383,15 +375,10 @@ cross-correlation with external catalogs. Note that the delivered
 absolute astrometric accuracy may be fundamentally limited by the
 accuracy of astrometric standard catalogs.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Median error in absolute position for each axis, RA \& DEC, shall be
 less than AA1. & 50 & milli-Arcsec & AA1 & \jira{DLP-309}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -436,19 +423,14 @@ LSST system design enables that these requirements can be met after the
 extent possible using simulations incorporating the as- built telescope
 and camera performance characteristics.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Median residual PSF ellipticity correlations averaged over an arbitrary
 field of view for separations less than 1 arcmin shall be no greater
 than & 2.0e-5 & -\/- & TE1 & \jira{DLP-290}\tabularnewline
 Median residual PSF ellipticity correlations averaged over an arbitrary
 field of view for separations between 1 and 5 arcmin shall be no greater
 than & 1.0e-7 & -\/- & TE2 & \jira{DLP-308}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -495,16 +477,11 @@ Valid identification means that detections of the same Solar System
 objects have been correctly associated as such. The verification method
 for this requirement will be comparison with simulated inputs.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Minimum fraction of Solar System objects meeting reference criteria for
 which valid orbits shall be determined. & 95\% & Percent &
 orbitCompleteness & \jira{DLP-323}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE, with help from University of
 Washington initially
@@ -549,17 +526,12 @@ recovery of artificial sources, and comparisons to ground truth where
 known (i.e., asteroids, known variable stars, known variable quasars,
 etc).
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Minimum average completeness for transient science. & 90 & Percent &
-transCompletenessMin & \jira{DLP-324}\tabularnewline
+trans\-Completeness\-Min & \jira{DLP-324}\tabularnewline
 Minimum average purity for transient science. & 95 & Percent &
 transPurityMin & \jira{DLP-325}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE, with help from University of
 Washington initially
@@ -608,17 +580,12 @@ recovery of artificial sources, and comparisons to ground truth where
 known (i.e., asteroids, known variable stars, known variable quasars,
 etc).
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Minimum average completeness for Solar System object discovery & 99 &
-Percent & mopsCompletenessMin & \jira{DLP-326}\tabularnewline
+Percent & mops\-Completeness\-Min & \jira{DLP-326}\tabularnewline
 Minimum average purity for Solar System object discovery & 50 & Percent
 & mopsPurityMin & \jira{DLP-327}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE, with help from University of
 Washington initially
@@ -664,11 +631,7 @@ similar vein, the DRP computational budget is the amount of
 computational processing power the software needs to process the data in
 1 year (6 months for the first year) with reasonable overheads.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llp{1.5in}l@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 The minimum latency for releasing data on optical transients.
 Performance of all AP pipelines, middleware and infrastructure. & 60 &
 seconds & OTT1 & \jira{DLP-328}\tabularnewline
@@ -678,8 +641,7 @@ and middleware. & 39 & TFLOPS & AP computational budget &
 Data Release Production computational budget (DR1). Performance of all
 DRP+AP pipelines. & 108 & TFLOPS & DRP computational budget (DR1) &
 \jira{DLP-314}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} NCSA
 
@@ -719,11 +681,7 @@ coadds for DR1 will be needed for a small number of fields.
 database service. See \citell{LDM-135} section 4.3 for more information on ``low
 volume'' and ``high volume'' queries.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llp{1.5in}p{0.75in}@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Qserv query rate & 150 & Simult. queries & query rate &
 \jira{DLP-659}\tabularnewline
 Qserv low volume query response time (Type A-D) & 10 & seconds & LV
@@ -736,8 +694,7 @@ Qserv high volume ObjectExtra scan response time & 8 & hours & HV
 ObjectExtra scan reponse time & \jira{DLP-656}\tabularnewline
 Qserv high volume Object/ForcedSource join response time & 12 & hours &
 HV Object/ForcedSource join reponse time & \jira{DLP-658}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} NCSA
 
@@ -765,11 +722,7 @@ should be good for this purpose.
 \textbf{Discussion:} These are requirements on the speed of the web user
 interface (UI).
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llp{1.5in}l@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Web UI portal can support concurrent users. & 100 & users & Web UI
 portal concurrent user supported & \jira{DLP-330}\tabularnewline
 Web UI query results display response time after the search results have
@@ -780,8 +733,7 @@ the server side. & 0.5 & seconds & Web UI image preparation time &
 \jira{DLP-332}\tabularnewline
 Web UI image rendering time on user's display. & 0.5 & seconds & Web UI
 image display rendering time & \jira{DLP-333}\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE
 
@@ -832,19 +784,14 @@ performance of the actual alert detection. This requirement is a
 performance specification on the DM system, taking the alert-detection
 algorithm as a given.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Maximum fraction of science visits for which alerts are generated, but
 delivered later than the OTT1 latency specification. & 1 & Percent &
 sciVisitAlertDelay & -\/-\tabularnewline
 Maximum fraction of visits for which alerts are not generated or
 distributed. & 0.1 & Percent & sciVisitAlertFailure &
 -\/-\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} SQuaRE, with help from University of
 Washington initially
@@ -882,17 +829,12 @@ The "specified to be acquired" language allows for the possibility that
 under some operating modes, such as diagnostics, images might be
 acquired by the camera and deliberately not archived.
 
-\begin{longtable}[]{@{}p{0.4\textwidth}llll@{}}
-\toprule
-Description & Value & Unit & Name & JIRA ID\tabularnewline
-\midrule
-\endhead
+\begin{metric}
 Maximum fraction of read-out raw images permitted to be permanently lost
 or corrupted downstream, including loss due to the loss or corruption of
 essential associated metadata. & 1 & Percent & sciImageLoss &
 -\/-\tabularnewline
-\bottomrule
-\end{longtable}
+\end{metric}
 
 \textbf{Verification Owner:} NCSA
 
