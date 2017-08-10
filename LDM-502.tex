@@ -1,7 +1,7 @@
 \documentclass[DM,lsstdraft,toc]{lsstdoc}
 \usepackage{booktabs}
 
-\title[Measurement and Verification of KPMs]{The Measurement and Verification of DM Key Performance Metrics}
+\title[Measurement and Verification of KPMs]{The Measurement and Verification of DM Science Pipelines Key Performance Metrics}
 \author{David Nidever and Frossie Economou}
 \date{May 6, 2016}
 \setDocRef{LDM-502}
@@ -671,87 +671,6 @@ needed for both the AP and DRP processing. For AP a number of handful of
 visits will be required. For DRP enough visits to realistically model
 coadds for DR1 will be needed for a small number of fields.
 
-\subsection{Database Metrics}\label{database-metrics}
-
-\textbf{Reference Document:} \citell{LSE-81}\textbar{}G270, G283, G284. Also see
-\citell{LDM-135}.
-
-\textbf{Discussion:} These are metrics on the performance of the Qserv
-database service. See \citell{LDM-135} section 4.3 for more information on ``low
-volume'' and ``high volume'' queries.
-
-\begin{metric}
-Qserv query rate & 150 & Simult. queries & query rate &
-\jira{DLP-659}\tabularnewline
-Qserv low volume query response time (Type A-D) & 10 & seconds & LV
-query response time & \jira{DLP-651} -- \jira{DLP-654}\tabularnewline
-Qserv low volume Object/Source joins response time & 12 & hours & LV
-Object/Source joins response time & \jira{DLP-657}\tabularnewline
-Qserv high volume object scan response time & 1 & hours & HV object scan
-response time & \jira{DLP-655}\tabularnewline
-Qserv high volume ObjectExtra scan response time & 8 & hours & HV
-ObjectExtra scan reponse time & \jira{DLP-656}\tabularnewline
-Qserv high volume Object/ForcedSource join response time & 12 & hours &
-HV Object/ForcedSource join reponse time & \jira{DLP-658}\tabularnewline
-\end{metric}
-
-\textbf{Verification Owner:} NCSA
-
-\textbf{Verification Technique:} The Qserv database will be loaded with
-a large precursor dataset. Sample queries will be run at a high rate and
-the response time measured. The results will need to be scaled up to the
-size of the eventual LSST database.
-
-\textbf{Verification Code:} Software will need to written to
-auto-generate a large number of queries of various types, submit the
-queries to Qserv, receive the returned data and measure the response and
-delay time.
-
-\textbf{Verification Implementation:} TBD
-
-\textbf{Verification Data:} For this test a precursor dataset is needed
-that is large enough to allow the results to be appropriately scaled up
-to the LSST database size. The Pan-STARRS1, SDSS or DES survey datasets
-should be good for this purpose.
-
-\subsection{Web UI Metrics}\label{web-ui-metrics}
-
-\textbf{Reference Document:} JIRA tickets.
-
-\textbf{Discussion:} These are requirements on the speed of the web user
-interface (UI).
-
-\begin{metric}
-Web UI portal can support concurrent users. & 100 & users & Web UI
-portal concurrent user supported & \jira{DLP-330}\tabularnewline
-Web UI query results display response time after the search results have
-been received from the data provider. & 1 & seconds & Web UI query
-response time & \jira{DLP-331}\tabularnewline
-Web UI image preparation (convert to PNG or other image format) time on
-the server side. & 0.5 & seconds & Web UI image preparation time &
-\jira{DLP-332}\tabularnewline
-Web UI image rendering time on user's display. & 0.5 & seconds & Web UI
-image display rendering time & \jira{DLP-333}\tabularnewline
-\end{metric}
-
-\textbf{Verification Owner:} Science Pipelines
-
-\textbf{Verification Technique:} Precursor datasets will be loaded into
-a database and queried via the web UI and the response and rendering
-times measured (on the server or user side as appropriate). Software
-will need to be used to emulate many users for the first metric.
-
-\textbf{Verification Code:} The server side and user side software will
-need to be able to measure the rendering and response times to test
-these metrics. Software to emulate \textasciitilde{}100 users, including
-simulated queries and the capture of the response, will be needed used
-or developed for this test.
-
-\textbf{Verification Implementation:} TBD
-
-\textbf{Verification Data:} Precursor datasets such as WISE or
-Pan-STARRS1 can be used for this test.
-
 \section{System Reliability Metrics}\label{system-reliability-metrics}
 
 There are additional requirements on the reliability of the entire DM
@@ -800,49 +719,6 @@ until commissioning with the full camera.
 
 \textbf{Verification Code:} This metric can be evaluated by using the
 internal database of when visits were taken and their alerts generated.
-
-\textbf{Verification Implementation:} TBD
-
-\textbf{Verification Data:} This metric will need to be tested with the
-``full-up'' DM system, likely during commissioning with the full camera.
-
-\subsection{Science Image Archiving
-Reliability}\label{science-image-archiving-reliability}
-
-Reference Document: \citell{LSE-30}; OSS-REQ-0111
-
-\textbf{Discussion:} No more than sciImageLoss \% of science, wavefront,
-and guider images read out in the camera and specified to be acquired by
-Data Management shall be permanently lost or corrupted, integrated over
-all stages of data handling through archiving and availability of the
-image for access in the archive, or have its essential image acquisition
-metadata permanently lost or disassociated with the image.
-
-Corruption of images shall mean changes of any image pixel values, with
-the exception of application of a compression algorithm. Any such
-compression algorithm must be shown to have no effect on any \SRD
-requirement.
-
-The "specified to be acquired" language allows for the possibility that
-under some operating modes, such as diagnostics, images might be
-acquired by the camera and deliberately not archived.
-
-\begin{metric}
-Maximum fraction of read-out raw images permitted to be permanently lost
-or corrupted downstream, including loss due to the loss or corruption of
-essential associated metadata. & 1 & Percent & sciImageLoss &
--\/-\tabularnewline
-\end{metric}
-
-\textbf{Verification Owner:} NCSA
-
-\textbf{Verification Technique:} This requirement will need to be tested
-with a ``full-up'' test of the DM system. This might not be possible
-until commissioning with the full camera.
-
-\textbf{Verification Code:} This metric can be evaluated by using the
-metadata database, the omission of any exposure numbers in the database,
-and the quality assurance metrics on the corruption of data.
 
 \textbf{Verification Implementation:} TBD
 
