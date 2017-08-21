@@ -1,0 +1,735 @@
+\documentclass[DM,lsstdraft,toc]{lsstdoc}
+\usepackage{booktabs}
+
+\title[Measurement and Verification of KPMs]{The Measurement and Verification of DM Science Pipelines Key Performance Metrics}
+\author{David Nidever and Frossie Economou}
+\date{2017-08-21}
+\setDocRef{LDM-502}
+
+\setDocAbstract{%
+An overview of the measurement and verification of Key Performance Metrics relating to Science Pipelines development.
+}
+
+% Environment for displaying the metric tables in
+% a consistent manner. No arguments as there are no
+% captions or labels.
+\newenvironment{metric}[0]{%
+\setlength\LTleft{0pt}
+\setlength\LTright{\fill}
+\begin{longtable}[]{@{}p{0.4\textwidth}lp{0.75in}p{1.3in}p{0.75in}@{}}
+
+\hline \textbf{Description} & \textbf{Value} & \textbf{Unit} & \textbf{Name} & \textbf{JIRA} \\ \hline
+\endhead
+
+\hline \multicolumn{5}{r}{\emph{Continued on next page}} \\
+\endfoot
+
+\hline\hline
+\endlastfoot
+}{%
+\hline
+\end{longtable}
+}
+
+
+%
+%   Revision history
+%
+% OLDEST FIRST: VERSION, DATE, DESCRIPTION, OWNER NAME
+\setDocChangeRecord{%
+\addtohist{}{2016-05-06}{Initial version}{David Nidever}
+\addtohist{}{2017-08-21}{Remove non-science pipeline KPMs. Assign science pipelines as owner.}{Tim~Jenness}
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+The Key Performance Metrics (KPMs) are the main criteria by which the
+performance of the Data Management (DM) software system are evaluated
+quantitatively. Many of these metrics are initially discussed in the
+Science Requirements Document (\SRD, \citell{LPM-17}) but detailed further in the
+LSST System Requirements (\LSR; \citell{LSE-29}) and the Observatory System
+Specifications (\OSS; \citell{LSE-30}). They can be grouped into six main
+categories: photometric, astrometric, shape, transient, computational
+and system stability metrics.
+
+It is important to note at the outset that these metrics are meant to
+test to performance of the software and not the data itself. Therefore,
+high quality datasets need to be used for these tests otherwise they
+will only reveal the flaws in the data and not the software.
+
+In the following, RSS stands for Root of Sum of Squares or adding all of
+the error terms in quadrature.
+
+\begin{note}[Photometric magnitudes]
+It is currently not clear what types of photometric magnitudes to use
+for the photometric KPMs: single-frame measurement, coadds,
+forced-photometry, multi-fit, PSF, or aperture?
+\end{note}
+
+This document deals solely with the Key Performance Metrics relating to Science Pipelines development.
+
+\section{Photometric Metrics}\label{photometric-metrics}
+
+There are several metrics on the precision (i.e. repeatability) and
+accuracy of the photometry.
+
+\subsection{Photometric Repeatability}\label{photometric-repeatability}
+
+\subsubsection{Calibration Processing
+Performance}\label{calibration-processing-performance}
+
+Reference Document: \citell{LSE-30}; OSS-REQ-0275
+
+\textbf{Discussion}: The LSST System shall photometrically calibrate raw
+image data such that the data processing contributes no more than the
+allocations of procCalRep for repeatability. These allocations include
+effects from calibration algorithms, errors and noise in producing the
+necessary calibration data products, as well as errors and uncertainties
+in any reference catalogs used in the calibration process.
+
+\begin{metric}
+The maximum allowed RSS contribution to the overall photometric
+repeatability of bright isolated point sources caused by errors
+introduced in the data processing pipelines. & 0.003 & ABmag &
+procCalRep & \jira{DLP-307}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} Two visits (exposures) of the same
+field with the same telescope/filter will be processed through the DM
+science pipelines including calibration. The sources will then be
+matched between the two visits and the RMS of the photometric
+differences of bright stars computed.
+
+\textbf{Verification Code:} Software exists to perform this calculation
+using data processed through the first step of the science pipeline
+(single frame processing with \texttt{processCcd}) called \htmladdnormallinkfoot{\texttt{validate\_drp}}{https://github.com/lsst/validate\_drp}. However, \texttt{validate\_drp}
+does not include the calibration processing which are covered by this
+KPM. Therefore, a modified version of this software will need to be
+written that covers a larger portion of the DM data processing.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The KPM can be testing using precursor
+datasets. The recommended dateset is the Hyper Suprime-Cam (HSC)
+engineering data of the COSMOS field.
+
+\subsubsection{Photometric Repeatability
+Performance}\label{photometric-repeatability-performance}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0093
+
+\textbf{Discussion:} The specifications for photometric repeatability
+applies to the cataloged LSST magnitudes,
+m\textsuperscript{std}(catalog) (see \SRD eq. 8), for appropriately
+chosen main sequence stars (e.g. non-variable stars color-selected from
+the main stellar locus).
+
+\begin{metric}
+The RMS photometric repeatability of bright non-saturated unresolved
+point sources in the \textbf{g}, \textbf{r}, and \textbf{i} filters. & 5
+& milli-Mag & PA1gri & \jira{DLP-315}\tabularnewline
+The RMS photometric repeatability of bright non-saturated unresolved
+point sources in the \textbf{u}, \textbf{z}, and \textbf{y} filters. &
+7.5 & milli-Mag & PA1uzy & \jira{DLP-316}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The technique is essentially the same
+as that used to compute the ``procCalRep'' KPM.
+
+\textbf{Verification Code:} The same software as used for ``procCalRep''
+KPM can be used here.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The same data as used for ``procCalRep'' KPM
+can be used here.
+
+\subsection{Photometric Spatial
+Uniformity}\label{photometric-spatial-uniformity}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0093. See also \SRD pg. 21.
+
+\textbf{Discussion:} The distribution width (rms) of the internal
+photometric zero-point error (the system stability across the sky) will
+not exceed PA3 millimag. Use same source selection as for PA1gri.
+
+\begin{metric}
+RMS width of internal photometric zero-point (precision of system
+uniformity across the sky) for u-band. & 20 & milli-Mag & PA3u &
+\jira{DLP-317}\tabularnewline
+RMS width of internal photometric zero-point (precision of system
+uniformity across the sky) in the g-band. & 10 & milli-Mag & PA3g &
+\jira{DLP-318}\tabularnewline
+RMS width of internal photometric zero-point (precision of system
+uniformity across the sky) in the y-band. & 10 & milli-Mag & PA3y &
+\jira{DLP-319}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} Checking the spatial uniformity of
+ground-based photometric zero-points is challenging because there is no
+hyper-accurate photometric dataset that covers the entire southern sky
+(at least to the level that LSST needs). Therefore, the recommendation
+is to use space-based data from the Gaia mission that should be accurate
+across the sky to the few milli-mag level. Since Gaia uses a different
+photometric system from LSST, photometric transformation equations from
+Gaia's G-band to the LSST bands will need to be derived (one set per
+filter). The Gaia G-band photometry, properly transformed, will then be
+compared to ground-based photometry in various parts of the sky. To
+improve the comparison only bright, blue, non-variable main-sequence
+stars will be used. The median difference (zero-point error) in each
+patch of sky will be computed and then the RMS computed over many
+patches of sky. Note that if the Gaia dataset are used to calibrate the
+LSST or pre-cursor data, then a separate test dataset will need to be
+used such as the HST white dwarf standard stars.
+
+\textbf{Verification Code:} Software will need to be written to ingest
+the Gaia data and to determine and apply the transformation equations
+from the ground-base photometric system to the Gaia G-band. Next,
+software will be needed to select the necessary sample of bright, blue,
+non-variable main-sequence stars in various regions across the sky,
+compare the photometry to the Gaia and calculate the final metric of the
+RMS of the differences in each band.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The Gaia G-band dataset (available in 2017)
+or the HST white dwarf standard star data will be used as the reference.
+The test data should be comprised of many fields spread across the sky
+using a modern multi-chip imager (e.g. HSC, DECam, CFHT). A subset of
+the HSC or DES survey data could be used for this purpose.
+
+\subsection{Color Zero-point Accuracy}\label{color-zero-point-accuracy}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0093, also see \SRD pg. 22
+
+\textbf{Discussion:} The absolute band-to-band zero-point
+transformations (color zero-points, e.g. for constructing the spectral
+energy distribution, SED) for main-sequence stars must be known with an
+accuracy of PA5 millimag. These requirements are primarily driven by the
+desired accuracy of photometric redshift estimates. Note that an overall
+stable gray error in the absolute calibration of the system does not
+have an impact on the above requirements. Such an error is specified by
+PA6. The same source selection as for PA1gri should be used.
+
+\begin{metric}
+Accuracy of absolute band-to-band color zero-point for all colors
+constructed from any filter pair, excluding the u-band. & 5 & milli-Mag
+& PA5 & \jira{DLP-320}\tabularnewline
+Accuracy of absolute band-to-band color zero-point for colors
+constructed using the u-band. & 10 & milli-Mag & PA5u &
+\jira{DLP-321}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} This requirement is on the color of
+stars. I can be tested by using spectrophotometric standard stars which
+have well-determined space-based spectra. These spectra will need to be
+convolved with the ground-based filter throughput curves to produce the
+synthetic magnitudes and colors. The synthetic colors of a number of
+standard stars will be compared to the calibrated ground-based colors
+and the median difference measured.
+
+\textbf{Verification Code}: The calibrated ground-based colors for the
+calibrators will be compared to the synthetic colors of the standard
+stars. Simple software will be needed to ``convolve'' the
+spectrophotometric spectrum with the filter response curves to create
+the synthetic photometry.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The HST standard star flux calibrators can
+be used as the reference data\footnote{\url{http://www.stsci.edu/hst/observatory/crds/calspec.html}}. The test data
+should be comprised of many fields spread across the sky (in the regions
+where the calibrators are located) using a modern multi-chip imager
+(e.g. SDSS, HSC, DECam, CFHT).
+
+\subsection{Absolute Photometric
+Accuracy}\label{absolute-photometric-accuracy}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0093. See also \SRD, pg. 22.
+
+\textbf{Discussion:} The LSST photometric system must transform to a
+physical scale (e.g. AB magnitude scale) with an accuracy of PA6
+millimag. The requirements are driven by the accuracy of absolute
+determination of quantities such as luminosity and asteroid size for
+objects with well determined distances. Note that the internal
+band-to-band transformations are required to be much more ac- curate as
+they may be calibrated and controlled by other means, and are not
+sensitive to errors in overall flux scale of photometric calibrators.
+Use same source selection as for PA1gri.
+
+\begin{metric}
+Accuracy of the transformation of the internal LSST photometry to a
+physical scale (e.g. AB magnitudes). & 10 & milli-Mag & PA6 &
+\jira{DLP-322}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} To accurately perform absolute flux
+calibration of ground-based photometry is quite challenging. Normally,
+spectrophotometric standard stars, such as white dwarfs, are used for
+this purpose. There is currently an effort underway, led by A. Saha and
+C. Stubbs, to calibrate many hot DA white dwarfs (to the few millimag
+level using HST photometry, Gemini spectroscopy and precise spectral
+models) for the purpose of absolute flux calibration for surveys like
+LSST. These standards will likely set the absolute flux calibration of
+the LSST photometric system after an ubercal calibration has been
+applied to the data. To test the accuracy of this calibration one would
+want to use a subset of the calibrators to perform the calibration and
+use the rest as the reference to test against.
+
+\textbf{Verification Code:} The software needed is fairly
+straightforward. The ground-based photometry for the calibrators
+\emph{not} used in the calibration will be compared to the flux
+calibrated spectrum of the star ``convolved'' with the filter response
+function (which itself must be quite accurate).
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Until the data for the new DA white dwarf
+calibrators become available the existing HST standard star flux
+calibrators can be used as the reference\footnote{\url{http://www.stsci.edu/hst/observatory/crds/calspec.html}}.\protect\hypertarget{_Toc301352570}{}{}
+The test data should be comprised of many fields spread across the sky
+(in the regions where the calibrators are located) using a modern
+multi-chip imager (e.g. SDSS, HSC, DECam, CFHT). As this requirement is
+also a constraint on the relative ubercal calibration across the sky, it
+would be useful to use a large dataset like SDSS, Pan-STARRS1, DES or
+the HSC survey to assess this metric.
+
+\section{Astrometric Metrics}\label{astrometric-metrics}
+
+There are relative and absolute requirements on the astrometry produced
+by the LSST DM stack.
+
+\subsection{Relative Astrometry}\label{relative-astrometry}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0094. See also \SRD, pg. 23-24.
+
+\textbf{Discussion:} This KPM concerns the astrometric quality of single
+visit exposures. The rms of the astrometric distance distribution for
+stellar pairs with separation of D arcmin (repeatability) will not
+exceed AMx milliarcsec (median distribution for a large number of
+sources). The three selected characteristic distances reflect the size
+of an individual sensor, a raft, and the camera. The required median
+astrometric precision is driven by the desire to achieve a proper motion
+accuracy of 0.2 mas/yr and parallax accuracy of 1.0 mas over the course
+of the survey. These two requirements correspond to relative astrometric
+precision for a single image of 10 mas (per coordinate).
+
+\begin{metric}
+Median relative astrometric measurement error on 5 arcminute scales. &
+\textless{}10 & milli-Arcsec & AM1 & \jira{DLP-310}\tabularnewline
+Median relative astrometric measurement error on 20 arcminute scales. &
+\textless{}10 & milli-Arcsec & AM2 & \jira{DLP-311}\tabularnewline
+Median relative astrometric measurement error on 200 arcminute scales. &
+\textless{}15 & milli-Arcsec & AM3 & \jira{DLP-312}\tabularnewline
+RMS difference between separations measured in the r-band and those
+measured in any other filter. & 10 & milli-Mag & AB1 &
+\jira{DLP-313}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} LSST needs to have good relative
+astrometry not just locally but over various scales on the sky. This can
+be checked by selecting pairs of stars, measuring their distances many
+times (over many visits), and determining how much the angular distance
+varies around its mean value. This exercise is repeated for pairs of
+stars separated on different angular scales. For AB1, the angular
+distances of pairs of stars are compared between one band and the r-band
+and the RMS of the differences determined.
+
+\textbf{Verification Code:} Software will be needed to match sources
+across different visits. Second, stars should be selected at random
+across the field and their ``partner'' star with a separation close to
+the angular scale that is being tested (5, 20, 200 arcmin). Then, the
+angular distance for each pair should be measured for each visit and the
+RMS determined about the mean. Finally, a median is taken of the
+distribution of RMS values. For AB1, the angular distance is compared
+between one band and the r-band and the RMS of the differences computed
+(only one visits is needed for each band for this test).
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The test data should be comprised of many
+visits in a small region of the sky using a modern multi-chip imager
+(e.g. HSC, DECam, CFHT). The HSC engineering data on the COSMOS field,
+or a subset of the HSC or DES survey data could be used for this
+purpose.
+
+\subsection{Absolute Astrometry}\label{absolute-astrometry}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0094. See also \SRD, pg.24.
+
+\textbf{Discussion:} The LSST astrometric system must transform to an
+external system (e.g. ICRF extension) with the median accuracy of AA1
+milliarcsec. The accuracy of absolute astrometry is driven by the
+linkage and orbital computations for solar system objects. A somewhat
+weaker constraint is also placed by the need for positional
+cross-correlation with external catalogs. Note that the delivered
+absolute astrometric accuracy may be fundamentally limited by the
+accuracy of astrometric standard catalogs.
+
+\begin{metric}
+Median error in absolute position for each axis, RA \& DEC, shall be
+less than AA1. & 50 & milli-Arcsec & AA1 & \jira{DLP-309}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The astrometric positions of stable
+sources (e.g. bright quasars) will be compared between
+astrometrically-calibrated LSST precursor datas and an astrometrically
+accurate catalog such as Gaia.
+
+\textbf{Verification Code:} The software will select stable sources from
+a catalog of quasars. The positions will be compared to a standard
+catalog, such as Gaia, and the median difference of the positions
+computed.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} The test data should be cover a large
+portion of the sky to cover enough quasars. The SDSS, DES or HSC survey
+datasets could be used for this purpose.
+
+\section{Shape Metrics}\label{shape-metrics}
+
+The measurements of shapes of galaxies are important for weak lensing
+and constraining dark energy.
+
+\subsection{Residual PSF Ellipticity
+Corrections}\label{residual-psf-ellipticity-corrections}
+
+Reference Document: \citell{LSE-29}; LSR-REQ-0097. See also \SRD, pg. 30-32.
+
+\textbf{Discussion:} Using the full survey data, the E1 and E2 (see \SRD
+for definitions) distributions averaged over an arbitrary FOV shall have
+medians less than TE1 for theta \textasciitilde{} 1 arcmin, and less
+than TE3 for theta \textless{} 5 arcmin. No more than TEF \% of images
+shall have these medians for E1 and E2 larger than TE2 for theta
+\textasciitilde{} 1 arcmin, or larger than TE4 for theta \textless{} 5
+arcmin.
+
+The requirements specified here require the full survey data set to
+exist before they can be met. Thus these are intended to ensure that the
+LSST system design enables that these requirements can be met after the
+10- year survey. Prior to survey start, they will be verified to the
+extent possible using simulations incorporating the as- built telescope
+and camera performance characteristics.
+
+\begin{metric}
+Median residual PSF ellipticity correlations averaged over an arbitrary
+field of view for separations less than 1 arcmin shall be no greater
+than & 2.0e-5 & -\/- & TE1 & \jira{DLP-290}\tabularnewline
+Median residual PSF ellipticity correlations averaged over an arbitrary
+field of view for separations between 1 and 5 arcmin shall be no greater
+than & 1.0e-7 & -\/- & TE2 & \jira{DLP-308}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The mean correlation of PSF ellipticity
+residuals needs to be measured between pairs of bright stars. The
+ellipticity is measured for bright stars and the low-order dependence of
+the ellipticity on the position in the focal plane is removed (creating
+ellipticity residuals). The auto and cross-correlation functions of the
+ellipticity residuals averaging over pairs of stars at a given angular
+separation are then computed. An important component of the
+ellipticities are the contributions from the optics. Therefore, this
+needs to be tested on simulated LSST data.
+
+\textbf{Verification Code:} Elliptical PSF models need to be fit to the
+bright stars and PCA fit performed on the spatial dependence of the
+ellipticity values to produce the ellipticity residuals. Pairs of stars
+on certain angular scales should be selected and the auto and
+cross-correlation functions of the ellipticity residuals measured.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Simulated LSST data of a small patch of sky
+will be required to test this KPM. The Twinkles simulation data might be
+sufficient for this test.
+
+\section{Transient \& Moving Object
+Metrics}\label{transient-moving-object-metrics}
+
+The detection and characterization of transients, including solar system
+objects, is an important component of LSST.
+
+\subsection{Moving Object Linkage
+Efficiency}\label{moving-object-linkage-efficiency}
+
+Reference Document: \citell{LSE-30}; OSS-REQ-0159
+
+\textbf{Discussion:} Valid identification and orbits shall be determined
+for at least a fraction orbitCompleteness of Solar System objects which
+are detected orbitObservations (2) times in orbitObservationInterval (3)
+days at a level orbitObservationThreshold (5) sigma or more above the
+single frame background.
+
+Valid identification means that detections of the same Solar System
+objects have been correctly associated as such. The verification method
+for this requirement will be comparison with simulated inputs.
+
+\begin{metric}
+Minimum fraction of Solar System objects meeting reference criteria for
+which valid orbits shall be determined. & 95\% & Percent &
+orbitCompleteness & \jira{DLP-323}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The LSST reduction and MOPS software
+will be run on simulated images that include solar system objects and
+the completeness of the recovered objects measured.
+
+\textbf{Verification Code:} The simulated data for several nights will
+need to be processed through the Level 1, image differencing, pipeline
+to detect the transients. These detections will then be fed to the MOPS
+software to perform the linkages. Separate software will then compare
+these linkages to the actual simulated orbits.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Simulated LSST images with solar system
+objects for several nights are required to perform this test. These do
+not exist yet and should be requested from the simulation team. A subset
+of the data needed to test the MOPS spuriousness metric can be used
+here.
+
+\subsection{Spuriousness Metric Efficiency --
+Transients}\label{spuriousness-metric-efficiency-transients}
+
+Reference Document: \citell{LSE-30}; OSS-REQ-0353
+
+\textbf{Discussion:} There shall exist a spuriousness threshold T for
+which the completeness and purity of selected difference sources are
+higher than transCompletenessMin and transPurityMin, respectively, at
+the SNR detection threshold transSampleSNR (6). This requirement is to
+be interpreted as an average over the entire survey.
+
+This specification captures representative completeness and purity rates
+supportive of time-domain science cases. Note that these are rates
+determined only using the spuriousness metric cut; it is likely the
+end-users will perform further classification steps to increase the
+purity of their samples, depending on their particular science case.
+
+This specification will be tested using simulations, by insertion and
+recovery of artificial sources, and comparisons to ground truth where
+known (i.e., asteroids, known variable stars, known variable quasars,
+etc).
+
+\begin{metric}
+Minimum average completeness for transient science. & 90 & Percent &
+trans\-Completeness\-Min & \jira{DLP-324}\tabularnewline
+Minimum average purity for transient science. & 95 & Percent &
+transPurityMin & \jira{DLP-325}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The LSST reduction and image
+differencing software will be run on simulated images with transients
+(including solar system objects) and the completeness and purity of the
+recovered transients measured.
+
+\textbf{Verification Code:} The simulated data for several nights will
+need to be processed through the Level 1, image differencing, pipeline
+to detect the transients. These detections will then be compared to the
+input transients to ascertain the completeness and purity.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Simulated data are needed to test this
+requirement. As this metric is meant to be an average over the entire
+survey, the simulated data should be for a representative patch of sky
+(or many of them) and include visits for the entire survey with
+realistic weather and must include the various types of transients. The
+Twinkles data might be approaching what is needed for this, but it is
+likely that more types of transients are needed and multiple fields on
+the sky.
+
+\subsection{Spuriousness Metric Efficiency -
+MOPS}\label{spuriousness-metric-efficiency---mops}
+
+Reference Document: \citell{LSE-30}; OSS-REQ-0354
+
+\textbf{Discussion:} There shall exist a spuriousness threshold T for
+which the completeness and purity of difference sources are higher than
+mopsCompletenessMin and mopsPurityMin, respectively, at the SNR
+detection threshold orbitObservationThreshold (5). This requirement is
+intended to be interpreted as an average for any one month of observing.
+
+This specification captures representative completeness and purity rates
+needed to enable successful identification and linking of observed Solar
+System objects. In particular, the need to have a Solar System object
+repeatedly detected orbitObservation (2) times in
+orbitObservationInterval (3) days strongly prefers high completeness,
+even at the expense of purity.
+
+This specification will be tested using simulations, by insertion and
+recovery of artificial sources, and comparisons to ground truth where
+known (i.e., asteroids, known variable stars, known variable quasars,
+etc).
+
+\begin{metric}
+Minimum average completeness for Solar System object discovery & 99 &
+Percent & mops\-Completeness\-Min & \jira{DLP-326}\tabularnewline
+Minimum average purity for Solar System object discovery & 50 & Percent
+& mopsPurityMin & \jira{DLP-327}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} The verification of this metric
+proceeds very similarly to the Moving Object Linkage Efficiency metric.
+The LSST reduction and MOPS software will be run on simulated images
+that include solar system objects and the completeness and purity of the
+recovered objects over month-long time spans are measured.
+
+\textbf{Verification Code:} The simulated data for many months (maybe
+\textasciitilde{}1 year) will need to be processed through the Level 1,
+image differencing, pipeline to detect the transients. These detections
+will then be fed to the MOPS software to perform the linkages and
+compute orbits. Separate software will then compare the solar system
+objects to those injected to determine the completeness and purity.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Simulated full focal-plane LSST images
+including solar system objects for many months (maybe \textasciitilde{}1
+year) are required to perform this test. These do not exist yet and
+should be requested from the simulation team.
+
+\section{Computational Performance
+Metrics}\label{computational-performance-metrics}
+
+There are various requirements on the computational performance of the
+DM stack and hardware.
+
+\subsection{Computational Budgets}\label{computational-budgets}
+
+\textbf{Reference Document:} \citell{LDM-138}\textbar{}Output\textbar{}C4, F4 and
+\citell{LSE-81}\textbar{}G263. Also see \SRD (pg.33-34) and \citell{LDM-140}.
+
+\textbf{Discussion:} Data on likely optical transients will be released
+with a latency of at most OTT1 (1) minutes. This includes the time to
+transfer the data from Chile to the US, the computational time to
+process the data and any overheads (e.g. I/O). The AP computational
+budget is the amount of computational processing power the software
+needs to meet the OTT1 with a reasonable amount of overhead. In a
+similar vein, the DRP computational budget is the amount of
+computational processing power the software needs to process the data in
+1 year (6 months for the first year) with reasonable overheads.
+
+\begin{metric}
+The minimum latency for releasing data on optical transients.
+Performance of all AP pipelines, middleware and infrastructure. & 60 &
+seconds & OTT1 & \jira{DLP-328}\tabularnewline
+Alert Production computational budget. Performance of all AP pipelines
+and middleware. & 39 & TFLOPS & AP computational budget &
+\jira{DLP-329}\tabularnewline
+Data Release Production computational budget (DR1). Performance of all
+DRP+AP pipelines. & 108 & TFLOPS & DRP computational budget (DR1) &
+\jira{DLP-314}\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} NCSA
+
+\textbf{Verification Technique:} The AP and DRP computational budgets
+are more straightforward to measure. A decent amount of simulated LSST
+data should be processed through the respective pipeline and the total
+number of floating point operations counted. This number is then scaled
+up to the total amount of data that will need to be processed (since the
+test only processes a small amount of) and then divided by the amount of
+time in which the processing must take place (1 min or 6/12 months) to
+produce the needed processing power in TFLOPS. The OTT1 test includes
+the time allotted for processing the data, the actual measured overheads
+incurred by the software and a realistic assessment of the amount of
+time it takes to transfer the data from Chile to the US (NCSA has a
+simulator for this).
+
+\textbf{Verification Code:} For the AP and DRP computational budgets the
+AP and DRP pipelines need to be run on a decent amount of simulated LSST
+data while keeping track of the total number of floating pointing
+operations and the overhead for the case of the AP. For the OTT1 test
+the AP overheads are used as well as the NCSA data transfer simulator to
+give a realistic transfer time.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} Simulated full-frame LSST data will be
+needed for both the AP and DRP processing. For AP a number of handful of
+visits will be required. For DRP enough visits to realistically model
+coadds for DR1 will be needed for a small number of fields.
+
+\section{System Reliability Metrics}\label{system-reliability-metrics}
+
+There are additional requirements on the reliability of the entire DM
+system.
+
+\subsection{Science Visit Alert Generation
+Reliability}\label{science-visit-alert-generation-reliability}
+
+Reference Document: \citell{LSE-30}; OSS-REQ-0112
+
+\textbf{Discussion:} No more than sciVisitAlertFailure \% of science
+visits read out in the camera {[}and specified to be analyzed by Data
+Management{]} shall fail to be subjected to alert generation and
+distribution, integrated over all stages of data handling from data
+acquisition through transmission of the alerts across the project
+boundary. No more than sciVisitAlertDelay \% of science visits read out
+in the camera {[}and specified to be analyzed by Data Management{]}
+shall have their alert generation and distribution completed later than
+the \SRD specification for alert latency (OTT1).
+
+The "specified to be analyzed" language allows for the possibility that
+under some operating modes, such as diagnostics, images deliberately not
+be analyzed for alerts.
+
+This requirement applies to visits, and not to individual alerts,
+because a specification that, e.g., "no more than 1\% of alerts shall
+fail to be generated" gets tangled with questions of the scientific
+performance of the actual alert detection. This requirement is a
+performance specification on the DM system, taking the alert-detection
+algorithm as a given.
+
+\begin{metric}
+Maximum fraction of science visits for which alerts are generated, but
+delivered later than the OTT1 latency specification. & 1 & Percent &
+sciVisitAlertDelay & -\/-\tabularnewline
+Maximum fraction of visits for which alerts are not generated or
+distributed. & 0.1 & Percent & sciVisitAlertFailure &
+-\/-\tabularnewline
+\end{metric}
+
+\textbf{Verification Owner:} Science Pipelines
+
+\textbf{Verification Technique:} This requirement will need to be tested
+with a ``full-up'' test of the DM system. This might not be possible
+until commissioning with the full camera.
+
+\textbf{Verification Code:} This metric can be evaluated by using the
+internal database of when visits were taken and their alerts generated.
+
+\textbf{Verification Implementation:} TBD
+
+\textbf{Verification Data:} This metric will need to be tested with the
+``full-up'' DM system, likely during commissioning with the full camera.
+
+\bibliography{lsst}
+
+\end{document}
