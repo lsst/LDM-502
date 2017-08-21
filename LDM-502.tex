@@ -3,10 +3,12 @@
 
 \title[Measurement and Verification of KPMs]{The Measurement and Verification of DM Science Pipelines Key Performance Metrics}
 \author{David Nidever and Frossie Economou}
-\date{May 6, 2016}
+\date{2017-08-21}
 \setDocRef{LDM-502}
 
-\newcommand{\jira}[1]{\href{https://jira.lsstcorp.org/browse/#1}{#1}}
+\setDocAbstract{%
+An overview of the measurement and verification of Key Performance Metrics relating to Science Pipelines development.
+}
 
 % Environment for displaying the metric tables in
 % a consistent manner. No arguments as there are no
@@ -35,7 +37,8 @@
 %
 % OLDEST FIRST: VERSION, DATE, DESCRIPTION, OWNER NAME
 \setDocChangeRecord{%
-\addtohist{1}{2016-05-06}{Initial version}{David Nidever}
+\addtohist{}{2016-05-06}{Initial version}{David Nidever}
+\addtohist{}{2017-08-21}{Remove non-science pipeline KPMs. Assign science pipelines as owner.}{Tim~Jenness}
 }
 
 \begin{document}
@@ -66,6 +69,8 @@ It is currently not clear what types of photometric magnitudes to use
 for the photometric KPMs: single-frame measurement, coadds,
 forced-photometry, multi-fit, PSF, or aperture?
 \end{note}
+
+This document deals solely with the Key Performance Metrics relating to Science Pipelines development.
 
 \section{Photometric Metrics}\label{photometric-metrics}
 
